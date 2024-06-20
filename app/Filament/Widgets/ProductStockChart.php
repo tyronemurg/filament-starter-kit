@@ -19,8 +19,8 @@ class ProductStockChart extends PieChartWidget
                     'label' => 'Stock',
                     'data' => $products->pluck('stock')->toArray(),
                     'backgroundColor' => [
+                        '#63ff94',
                         '#FF6384',
-                        '#36A2EB',
                         '#FFCE56',
                         '#4BC0C0',
                         '#9966FF',
