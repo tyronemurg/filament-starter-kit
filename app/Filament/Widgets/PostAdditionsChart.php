@@ -7,19 +7,19 @@ use Filament\Widgets\LineChartWidget;
 
 class PostAdditionsChart extends LineChartWidget
 {
-    protected static ?string $heading = 'Post Additions Over Time';
+    protected static ?string $heading = 'Post Additions Per Day';
 
     protected function getData(): array
     {
-        // Query the number of posts created per month
+        // Query the number of posts created per day
         $posts = Post::query()
-            ->selectRaw('DATE_FORMAT(created_at, "%Y-%m") as month, COUNT(*) as count')
-            ->groupBy('month')
-            ->orderBy('month')
+            ->selectRaw('DATE(created_at) as date, COUNT(*) as count')
+            ->groupBy('date')
+            ->orderBy('date')
             ->get();
 
         // Prepare the data for the chart
-        $labels = $posts->pluck('month')->toArray();
+        $labels = $posts->pluck('date')->toArray();
         $data = $posts->pluck('count')->toArray();
 
         return [
