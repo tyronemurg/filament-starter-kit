@@ -7,6 +7,10 @@ use Filament\Support\Facades\FilamentIcon;
 use Filament\Widgets\Widget;
 use Filament\Widgets\WidgetConfiguration;
 use Illuminate\Contracts\Support\Htmlable;
+use App\Filament\Widgets\ProductStockChart;
+use App\Filament\Widgets\BannerRadarChart;
+use App\Filament\Widgets\CategoryBarChart;
+use App\Filament\Widgets\PostAdditionsChart;
 
 class Dashboard extends Page
 {
@@ -43,7 +47,22 @@ class Dashboard extends Page
      */
     public function getWidgets(): array
     {
-        return Filament::getWidgets();
+        $widgets = Filament::getWidgets();
+
+        // Specify the desired order of widgets
+        $orderedWidgets = [
+            PostAdditionsChart::class,
+            CategoryBarChart::class,
+            ProductStockChart::class,
+            BannerRadarChart::class,
+            // Include other widgets as needed...
+        ];
+
+        // Merge with the remaining widgets to ensure all widgets are included
+        $remainingWidgets = array_diff($widgets, $orderedWidgets);
+        $finalWidgets = array_merge($remainingWidgets, $orderedWidgets);
+
+        return $finalWidgets;
     }
 
     /**
