@@ -1,11 +1,3 @@
-<div align="center">
-  <img src="https://i.postimg.cc/4djrcJXx/logo.png" alt="Starter kit logo" width="200"/>
-
-  [![Latest Version on Packagist](https://img.shields.io/packagist/v/riodwanto/superduper-filament-starter-kit.svg?style=flat-square)](https://packagist.org/packages/riodwanto/superduper-filament-starter-kit)
-  [![Laravel](https://github.com/riodwanto/superduper-filament-starter-kit/actions/workflows/laravel.yml/badge.svg)](https://github.com/riodwanto/superduper-filament-starter-kit/actions/workflows/laravel.yml)
-    [![Total Downloads](https://img.shields.io/packagist/dt/riodwanto/superduper-filament-starter-kit.svg?style=flat-square)](https://packagist.org/packages/riodwanto/superduper-filament-starter-kit)
-</div>
-
 <p align="center">
     A starting point to create your next Filament 3 💡 app. With pre-installed plugins, pre-configured, and custom page. So you don't start all over again.
 </p>
@@ -13,44 +5,26 @@
 #### Features
 
 -   🛡 [Filament Shield](#plugins-used) for managing role access
--   👨🏻‍🦱 customizable profile page from [Filament Breezy](#plugins-used)
+-   👨🏻‍🦱 Customizable profile page from [Filament Breezy](#plugins-used)
 -   🌌 Managable media with [Filament Spatie Media](#plugins-used)
 -   🖼 Theme settings for changing panel color
 -   💌 Setting mail on the fly in Mail settings
 -   🅻 Lang Generator
--   Etc..
-
 
 #### Latest update
-###### Version: v1.14.xx
-- New UserResource UI form
-- Add avatar to user add & edit
-- New Theme settings UI
+###### Version: v1.15.xx
+- New Products Resource UI form
+- Dashboard Chart Widgets
 - Bugs fix & Improvement
-- Forgot Password
-- User Verification
-- Etc
-
-[Version Releases](https://github.com/riodwanto/superduper-filament-starter-kit/releases)
-
-###### Upcoming:
-- ~~Filament Multi Tenancy 🔥~~
-- Add opcodesio/log-viewer for general log viewer
-- Member Module
-- Some Improvement
-- ...
-
-*Sadly, Filament Multi-Tenancy will not be included in this starter kit. This repository will focus on improvements for non-multi-tenants, since many rooms should be improved.*
-**But, I'll release on different repo for Multi Tenancy usecase.** ☕️
-
-<a href="https://buymeacoffee.com/riodewanto" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Coffee" style="height: 41px !important;width: 174px !important;box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;-webkit-box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;" ></a>
+- Products API Resource
+- Posts API Resource
 
 #### Getting Started
 
 Create project with this composer command:
 
 ```bash
-composer create-project riodwanto/superduper-filament-starter-kit
+composer create-project tyronemurg/superduper-filament-starter-kit
 ```
 
 Setup your env:
@@ -150,23 +124,10 @@ These are [Filament Plugins](https://filamentphp.com/plugins) use for this proje
 | [Logger](https://github.com/z3d0x/filament-logger)                                                  | [z3d0x](https://github.com/z3d0x)                   |
 | [Ace Code Editor](https://github.com/riodwanto/filament-ace-editor)                                 | [riodwanto](https://github.com/riodwanto)           |
 
-#### Plugins Recommendation
-
-Other recommendations for your starter, in my personal opinion:
-
-- [Rupadana - API Resources](https://filamentphp.com/plugins/rupadana-api-service) : Generate API for your Resources.
-- [Bezhan Salleh - Language Switch](https://filamentphp.com/plugins/bezhansalleh-language-switch) : Zero config Language Switcher plugin for Filament Panels.
-- [Kenepa - Resource Lock](https://filamentphp.com/plugins/kenepa-resource-lock) : Resource locking when other user begins editing a resource.
-- [Baptiste Bouillot - Jobs monitor](https://filamentphp.com/plugins/croustibat-jobs-monitor) : Monitor background jobs.
-- [Ralph J. Smit - Components](https://filamentphp.com/plugins/ralphjsmit-components) : A collection of handy components.
-- [Tapp Network - Laravel Auditing](https://filamentphp.com/plugins/tapp-network-laravel-auditing) : Resource locking when other user begins editing a resource.
-- [Shuvro Roy - Spatie Laravel Health](https://filamentphp.com/plugins/shuvroroy-spatie-laravel-health) : Health monitoring for Filament.
-
-<a href="https://buymeacoffee.com/riodewanto" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Coffee" style="height: 41px !important;width: 174px !important;box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;-webkit-box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;" ></a>
 
 ### License
 
 Filament Starter is provided under the [MIT License](LICENSE.md).
 
-If you discover a bug, please [open an issue](https://github.com/riodwanto/superduper-filament-starter-kit/issues).
+If you discover a bug, please [open an issue](https://github.com/tyronemurg/filament-starter-kit/issues).
 
