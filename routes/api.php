@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\API\PostController;
 use App\Http\Controllers\API\CategoryController;
+use App\Http\Controllers\API\BannerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,3 +33,6 @@ Route::apiResource('posts', PostController::class);
 
 //Categories API Routes
 Route::apiResource('categories', CategoryController::class);
+
+//Banners API Routes
+Route::apiResource('banners', BannerController::class);
