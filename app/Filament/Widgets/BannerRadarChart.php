@@ -43,21 +43,21 @@ class BannerRadarChart extends RadarChartWidget
                 [
                     'label' => 'Total Banners',
                     'data' => $metrics->pluck('total_banners')->toArray(),
-                    'backgroundColor' => 'rgba(179, 181, 198, 0.2)',
-                    'borderColor' => 'rgba(179, 181, 198, 1)',
-                    'pointBackgroundColor' => 'rgba(179, 181, 198, 1)',
-                    'pointBorderColor' => '#fff',
-                    'pointHoverBackgroundColor' => '#fff',
-                    'pointHoverBorderColor' => 'rgba(179, 181, 198, 1)',
+                    'backgroundColor' => '#63ff9487',
+                    'borderColor' => 'green',
+                    'pointBackgroundColor' => '#63ff9487',
+                    'pointBorderColor' => 'green',
+                    'pointHoverBackgroundColor' => 'green',
+                    'pointHoverBorderColor' => '#63ff9487',
                 ],
                 [
                     'label' => 'Visible Banners',
                     'data' => $visibleBanners->pluck('total_visible_banners')->toArray(),
                     'backgroundColor' => 'rgba(54, 162, 235, 0.2)',
                     'borderColor' => 'rgba(54, 162, 235, 1)',
-                    'pointBackgroundColor' => 'rgba(54, 162, 235, 1)',
-                    'pointBorderColor' => '#fff',
-                    'pointHoverBackgroundColor' => '#fff',
+                    'pointBackgroundColor' => 'rgba(54, 162, 235, 0.2)',
+                    'pointBorderColor' => 'rgba(54, 162, 235, 1)',
+                    'pointHoverBackgroundColor' => 'rgba(54, 162, 235, 0.2)',
                     'pointHoverBorderColor' => 'rgba(54, 162, 235, 1)',
                 ],
                 [
@@ -65,12 +65,35 @@ class BannerRadarChart extends RadarChartWidget
                     'data' => $startedBanners->pluck('total_started_banners')->toArray(),
                     'backgroundColor' => 'rgba(255, 99, 132, 0.2)',
                     'borderColor' => 'rgba(255, 99, 132, 1)',
-                    'pointBackgroundColor' => 'rgba(255, 99, 132, 1)',
-                    'pointBorderColor' => '#fff',
-                    'pointHoverBackgroundColor' => '#fff',
+                    'pointBackgroundColor' => 'rgba(255, 99, 132, 0.2)',
+                    'pointBorderColor' => 'rgba(255, 99, 132, 1)',
+                    'pointHoverBackgroundColor' => 'rgba(255, 99, 132, 0.2)',
                     'pointHoverBorderColor' => 'rgba(255, 99, 132, 1)',
                 ],
                 // Add other datasets here if needed
+            ],
+            
+        ];
+    }
+    protected function getOptions(): array
+    {
+        return [
+            'scales' => [
+                'r' => [
+                    'grid' => [
+                        'color' => 'rgba(128, 128, 128, 0.2)', // Light gray grid lines
+                    ],
+                    'angleLines' => [
+                        'color' => 'rgba(128, 128, 128, 0.2)', // Light gray angle lines
+                    ],
+                    'pointLabels' => [
+                        'color' => '#fff', // Black point labels
+                    ],
+                    'ticks' => [
+                        'color' => 'rgba(128, 128, 128, 0.9)', // Black tick labels
+                        'backdropColor' => 'rgba(0, 0, 0, 0)', // Transparent backdrop
+                    ],
+                ],
             ],
         ];
     }
