@@ -11,6 +11,7 @@ use App\Filament\Widgets\ProductStockChart;
 use App\Filament\Widgets\BannerRadarChart;
 use App\Filament\Widgets\CategoryBarChart;
 use App\Filament\Widgets\PostAdditionsChart;
+use App\Filament\Widgets\OverallStatsWidget;
 
 class Dashboard extends Page
 {
@@ -51,6 +52,7 @@ class Dashboard extends Page
 
         // Specify the desired order of widgets
         $orderedWidgets = [
+            OverallStatsWidget::class,
             PostAdditionsChart::class,
             CategoryBarChart::class,
             ProductStockChart::class,

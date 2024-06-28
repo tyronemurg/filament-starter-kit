@@ -24,6 +24,19 @@ class BannerRadarChart extends RadarChartWidget
             ];
         });
 
+        $visibleBanners = Banner::selectRaw('banner_category_id, COUNT(*) as total_visible_banners')
+            ->where('is_visible', true)
+            ->groupBy('banner_category_id')
+            ->get();
+
+        $startedBanners = Banner::selectRaw('banner_category_id, COUNT(*) as total_started_banners')
+            ->whereNotNull('start_date')
+            ->groupBy('banner_category_id')
+            ->get();
+
+        // Assuming `banner_category_id` is the same for both queries
+        $categories = $visibleBanners->pluck('banner_category_id')->toArray();
+
         return [
             'labels' => $metrics->pluck('name')->toArray(),
             'datasets' => [
@@ -36,6 +49,26 @@ class BannerRadarChart extends RadarChartWidget
                     'pointBorderColor' => '#fff',
                     'pointHoverBackgroundColor' => '#fff',
                     'pointHoverBorderColor' => 'rgba(179, 181, 198, 1)',
+                ],
+                [
+                    'label' => 'Visible Banners',
+                    'data' => $visibleBanners->pluck('total_visible_banners')->toArray(),
+                    'backgroundColor' => 'rgba(54, 162, 235, 0.2)',
+                    'borderColor' => 'rgba(54, 162, 235, 1)',
+                    'pointBackgroundColor' => 'rgba(54, 162, 235, 1)',
+                    'pointBorderColor' => '#fff',
+                    'pointHoverBackgroundColor' => '#fff',
+                    'pointHoverBorderColor' => 'rgba(54, 162, 235, 1)',
+                ],
+                [
+                    'label' => 'Started Banners',
+                    'data' => $startedBanners->pluck('total_started_banners')->toArray(),
+                    'backgroundColor' => 'rgba(255, 99, 132, 0.2)',
+                    'borderColor' => 'rgba(255, 99, 132, 1)',
+                    'pointBackgroundColor' => 'rgba(255, 99, 132, 1)',
+                    'pointBorderColor' => '#fff',
+                    'pointHoverBackgroundColor' => '#fff',
+                    'pointHoverBorderColor' => 'rgba(255, 99, 132, 1)',
                 ],
                 // Add other datasets here if needed
             ],
