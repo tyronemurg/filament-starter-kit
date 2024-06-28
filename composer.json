@@ -33,6 +33,7 @@
         "laravel/tinker": "^2.8",
         "league/commonmark": "^2.4",
         "riodwanto/filament-ace-editor": "^1.0",
+        "webbingbrasil/filament-maps": "3.0.0-beta.1",
         "z3d0x/filament-logger": "^0.6.3"
     },
     "require-dev": {

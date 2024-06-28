@@ -12,6 +12,7 @@ use App\Filament\Widgets\BannerRadarChart;
 use App\Filament\Widgets\CategoryBarChart;
 use App\Filament\Widgets\PostAdditionsChart;
 use App\Filament\Widgets\OverallStatsWidget;
+use App\Filament\Widgets\LeafletMapWidget;
 
 class Dashboard extends Page
 {
@@ -57,6 +58,7 @@ class Dashboard extends Page
             CategoryBarChart::class,
             ProductStockChart::class,
             BannerRadarChart::class,
+            LeafletMapWidget::class,
             // Include other widgets as needed...
         ];
 
