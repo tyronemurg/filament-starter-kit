@@ -72,6 +72,29 @@ class BannerRadarChart extends RadarChartWidget
                 ],
                 // Add other datasets here if needed
             ],
+            
+        ];
+    }
+    protected function getOptions(): array
+    {
+        return [
+            'scales' => [
+                'r' => [
+                    'grid' => [
+                        'color' => 'rgba(128, 128, 128, 0.2)', // Light gray grid lines
+                    ],
+                    'angleLines' => [
+                        'color' => 'rgba(128, 128, 128, 0.2)', // Light gray angle lines
+                    ],
+                    'pointLabels' => [
+                        'color' => '#fff', // Black point labels
+                    ],
+                    'ticks' => [
+                        'color' => 'rgba(128, 128, 128, 0.9)', // Black tick labels
+                        'backdropColor' => 'rgba(0, 0, 0, 0)', // Transparent backdrop
+                    ],
+                ],
+            ],
         ];
     }
 }
