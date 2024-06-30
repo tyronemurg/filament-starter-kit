@@ -18,7 +18,7 @@ class LeafletMapWidget extends MapWidget
     private function fetchGeolocationData(): array
     {
         // Fetch geolocation data for a few cities
-        $cities = ['New York', 'Los Angeles', 'Chicago'];
+        $cities = ['New York', 'Los Angeles', 'Chicago', 'San Francisco', 'Cape Town', 'Durban', 'London'];
         $geolocationData = [];
 
         foreach ($cities as $city) {
@@ -42,7 +42,7 @@ class LeafletMapWidget extends MapWidget
                 Log::error("Error fetching data for city: {$city}", ['error' => $e->getMessage()]);
             }
         }
-        
+        Log::info("Geolocation data fetched: ", $geolocationData);
         return $geolocationData;
     }
 
