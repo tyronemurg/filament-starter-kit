@@ -8,6 +8,7 @@ use Filament\Widgets\BarChartWidget;
 class CategoryBarChart extends BarChartWidget
 {
     protected static ?string $heading = 'Categories Bar Chart';
+    protected static bool $isLazy = false;
 
     protected function getData(): array
     {
