@@ -37,9 +37,11 @@ class LeafletMapWidget extends MapWidget
                     ];
                 } else {
                     Log::error("Failed to fetch data for city: {$city}", ['response' => $response->body()]);
+                    return false; // If any request fails, return false
                 }
             } catch (\Exception $e) {
                 Log::error("Error fetching data for city: {$city}", ['error' => $e->getMessage()]);
+                return false; // If any request fails, return false
             }
         }
         Log::info("Geolocation data fetched: ", $geolocationData);
@@ -48,22 +50,24 @@ class LeafletMapWidget extends MapWidget
 
     public function getMarkers(): array
     {
-        $geolocationData = $this->fetchGeolocationData();
-        $markers = [];
+       // Fetch geolocation data
+       $geolocationData = $this->fetchGeolocationData();
 
-        foreach ($geolocationData as $location) {
-            $markers[] = Marker::make($location['name'])
-                ->lat($location['lat'])
-                ->lng($location['lon'])
-                ->popup("Hello {$location['name']}!");
-        }
-
-        return $markers;
-
-        // return [
-        //     Marker::make('pos2')->lat(-15.7942)->lng(-47.8822)->popup('Hello Brasilia!'),
-        //     Marker::make('pos3')->lat(-26.052136294208974)->lng(28.02524274690296)->popup('Hello Bryanstan'),
-        // ];
+       if (!empty($geolocationData)) {
+           // Successfully fetched data, use dynamic markers
+           return collect($geolocationData)->map(function ($location) {
+               return Marker::make($location['name'])
+                   ->lat($location['lat'])
+                   ->lng($location['lon'])
+                   ->popup("Hello {$location['name']}!");
+           })->toArray();
+       } else {
+           // API request failed, use static markers as fallback
+           return [
+               Marker::make('pos2')->lat(-15.7942)->lng(-47.8822)->popup('Hello Brasilia!'),
+               Marker::make('pos3')->lat(-26.052136294208974)->lng(28.02524274690296)->popup('Hello Bryanstan'),
+           ];
+       }
     }
 
     public function getPolylines(): array
