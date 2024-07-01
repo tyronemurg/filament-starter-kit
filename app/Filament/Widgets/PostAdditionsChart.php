@@ -8,6 +8,7 @@ use Filament\Widgets\LineChartWidget;
 class PostAdditionsChart extends LineChartWidget
 {
     protected static ?string $heading = 'Post Additions Per Day';
+    protected static bool $isLazy = false;
 
     protected function getData(): array
     {

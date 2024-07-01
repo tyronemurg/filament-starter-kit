@@ -9,6 +9,7 @@ class BannerRadarChart extends RadarChartWidget
 {
     protected static ?string $heading = 'Banner Category Metrics';
     protected static ?int $navigationSort = 3;
+    protected static bool $isLazy = false;
 
     protected function getData(): array
     {

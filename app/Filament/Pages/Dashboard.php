@@ -54,11 +54,11 @@ class Dashboard extends Page
         // Specify the desired order of widgets
         $orderedWidgets = [
             OverallStatsWidget::class,
-            LeafletMapWidget::class,
             PostAdditionsChart::class,
             CategoryBarChart::class,
             ProductStockChart::class,
             BannerRadarChart::class,
+            LeafletMapWidget::class,
             
             // Include other widgets as needed...
         ];

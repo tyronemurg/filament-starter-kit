@@ -7,6 +7,7 @@ use Filament\Widgets\PieChartWidget;
 class ProductStockChart extends PieChartWidget
 {
     protected static ?string $heading = 'Product Stock';
+    protected static bool $isLazy = false;
 
     protected function getData(): array
     {
