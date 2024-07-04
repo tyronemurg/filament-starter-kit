@@ -37,11 +37,11 @@ class LeafletMapWidget extends MapWidget
                     ];
                 } else {
                     Log::error("Failed to fetch data for city: {$city}", ['response' => $response->body()]);
-                    return false; // If any request fails, return false
+                    //return false; // If any request fails, return false
                 }
             } catch (\Exception $e) {
                 Log::error("Error fetching data for city: {$city}", ['error' => $e->getMessage()]);
-                return false; // If any request fails, return false
+                //return false; // If any request fails, return false
             }
         }
         Log::info("Geolocation data fetched: ", $geolocationData);
