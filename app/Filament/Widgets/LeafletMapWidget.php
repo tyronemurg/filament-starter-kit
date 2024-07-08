@@ -72,32 +72,37 @@ class LeafletMapWidget extends MapWidget
 
     public function getPolylines(): array
 {
-
+    // Fetch geolocation data
     $geolocationData = $this->fetchGeolocationData();
-    $latlngs = [];
 
+    // Find the coordinates for New York
+    $newYorkCoordinates = null;
     foreach ($geolocationData as $location) {
-        $latlngs[] = [(float)$location['lat'], (float)$location['lon']];
+        if ($location['name'] === 'New York') {
+            $newYorkCoordinates = [(float)$location['lat'], (float)$location['lon']];
+            break;
+        }
     }
 
-    return [
-        Polyline::make('line1')
-            ->latlngs($latlngs)
-            ->options(['color' => 'red', 'weight' => 10])
-            ->tooltip('Dynamic Polygon')
-            ->popup('Dynamic Polygon'),
-    ];
-
-    // return [
-    //     Polyline::make('line1')
-    //     ->latlngs([
-    //         [45.51, -122.68],
-    //         [37.77, -122.43],
-    //         [34.04, -118.2]
-    //     ])->options(['color' => 'red', 'weight' => 10])
-    //     ->tooltip('I am a polygon')
-    //     ->popup('I am a polygon'),
-    // ];
+    if ($newYorkCoordinates) {
+        return [
+            Polyline::make('geoFence')
+                ->latlngs([
+                    $newYorkCoordinates,
+                    // Add other points to form a polygon (geo fence)
+                    [(float)$newYorkCoordinates[0] + 0.1, (float)$newYorkCoordinates[1] + 0.1], // Example points
+                    [(float)$newYorkCoordinates[0] + 0.1, (float)$newYorkCoordinates[1] - 0.1],
+                    [(float)$newYorkCoordinates[0] - 0.1, (float)$newYorkCoordinates[1] - 0.1],
+                    [(float)$newYorkCoordinates[0] - 0.1, (float)$newYorkCoordinates[1] + 0.1],
+                ])
+                ->options(['color' => 'blue', 'fillColor' => 'blue', 'fillOpacity' => 0.4]) // Adjust color and opacity as needed
+                ->tooltip('Geo Fence around New York')
+                ->popup('Geo Fence around New York'),
+        ];
+    } else {
+        // If New York coordinates are not found, return an empty array or default polyline
+        return [];
+    }
 }
 
     public function getActions(): array
