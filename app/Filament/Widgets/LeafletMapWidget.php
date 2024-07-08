@@ -95,7 +95,7 @@ class LeafletMapWidget extends MapWidget
                     [(float)$newYorkCoordinates[0] - 0.1, (float)$newYorkCoordinates[1] - 0.1],
                     [(float)$newYorkCoordinates[0] - 0.1, (float)$newYorkCoordinates[1] + 0.1],
                 ])
-                ->options(['color' => 'blue', 'fillColor' => 'blue', 'fillOpacity' => 0.4]) // Adjust color and opacity as needed
+                ->options(['color' => 'red', 'fillColor' => 'red', 'fillOpacity' => 0.4]) // Adjust color and opacity as needed
                 ->tooltip('Geo Fence around New York')
                 ->popup('Geo Fence around New York'),
         ];
