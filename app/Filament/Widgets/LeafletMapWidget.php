@@ -71,39 +71,60 @@ class LeafletMapWidget extends MapWidget
     }
 
     public function getPolylines(): array
-{
-    // Fetch geolocation data
-    $geolocationData = $this->fetchGeolocationData();
-
-    // Find the coordinates for New York
-    $newYorkCoordinates = null;
-    foreach ($geolocationData as $location) {
-        if ($location['name'] === 'New York') {
-            $newYorkCoordinates = [(float)$location['lat'], (float)$location['lon']];
-            break;
+    {
+        // Fetch geolocation data
+        $geolocationData = $this->fetchGeolocationData();
+    
+        // Initialize an array to store all polylines
+        $polylines = [];
+    
+        // Add geo fence around New York if found
+        foreach ($geolocationData as $location) {
+            if ($location['name'] === 'New York') {
+                $polylines[] = Polyline::make('geoFence')
+                    ->latlngs([
+                        [(float)$location['lat'], (float)$location['lon']],
+                        // Add other points to form a polygon (geo fence)
+                        [(float)$location['lat'] + 0.1, (float)$location['lon'] + 0.1], // Example points
+                        [(float)$location['lat'] + 0.1, (float)$location['lon'] - 0.1],
+                        [(float)$location['lat'] - 0.1, (float)$location['lon'] - 0.1],
+                        [(float)$location['lat'] - 0.1, (float)$location['lon'] + 0.1],
+                    ])
+                    ->options(['color' => 'blue', 'fillColor' => 'blue', 'fillOpacity' => 0.4]) // Adjust color and opacity as needed
+                    ->tooltip('Geo Fence around New York')
+                    ->popup('Geo Fence around New York');
+            }
         }
-    }
-
-    if ($newYorkCoordinates) {
-        return [
-            Polyline::make('geoFence')
+    
+        // Find the coordinates for Durban and Cape Town
+        $durbanCoordinates = null;
+        $capeTownCoordinates = null;
+    
+        foreach ($geolocationData as $location) {
+            if ($location['name'] === 'Durban') {
+                $durbanCoordinates = [(float)$location['lat'], (float)$location['lon']];
+            }
+            if ($location['name'] === 'Cape Town') {
+                $capeTownCoordinates = [(float)$location['lat'], (float)$location['lon']];
+            }
+        }
+    
+        // Add polyline from Durban to Cape Town if coordinates are found
+        if ($durbanCoordinates && $capeTownCoordinates) {
+            $polylines[] = Polyline::make('routeDurbanToCapeTown')
                 ->latlngs([
-                    $newYorkCoordinates,
-                    // Add other points to form a polygon (geo fence)
-                    [(float)$newYorkCoordinates[0] + 0.1, (float)$newYorkCoordinates[1] + 0.1], // Example points
-                    [(float)$newYorkCoordinates[0] + 0.1, (float)$newYorkCoordinates[1] - 0.1],
-                    [(float)$newYorkCoordinates[0] - 0.1, (float)$newYorkCoordinates[1] - 0.1],
-                    [(float)$newYorkCoordinates[0] - 0.1, (float)$newYorkCoordinates[1] + 0.1],
+                    $durbanCoordinates,
+                    $capeTownCoordinates,
+                    // Add more points as needed to refine the route
                 ])
-                ->options(['color' => 'red', 'fillColor' => 'red', 'fillOpacity' => 0.4]) // Adjust color and opacity as needed
-                ->tooltip('Geo Fence around New York')
-                ->popup('Geo Fence around New York'),
-        ];
-    } else {
-        // If New York coordinates are not found, return an empty array or default polyline
-        return [];
+                ->options(['color' => 'green', 'weight' => 5])
+                ->tooltip('Route from Durban to Cape Town')
+                ->popup('Route from Durban to Cape Town');
+        }
+    
+        return $polylines;
     }
-}
+    
 
     public function getActions(): array
     {
