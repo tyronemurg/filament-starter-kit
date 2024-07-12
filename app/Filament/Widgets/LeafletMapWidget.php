@@ -63,73 +63,71 @@ class LeafletMapWidget extends MapWidget
     }
 
     public function getMarkers(): array
-    {
-        // Fetch geolocation data
-        $geolocationData = $this->fetchGeolocationData();
+{
+    // Fetch geolocation data
+    $geolocationData = $this->fetchGeolocationData();
 
-        $markers = [];
+    $markers = [];
 
-        if (!empty($geolocationData)) {
-            // Use dynamic markers with geofence check
-            foreach ($geolocationData as $location) {
-                $marker = Marker::make($location['name'])
-                    ->lat($location['lat'])
-                    ->lng($location['lon'])
-                    ->popup("Hello {$location['name']}!");
+    if (!empty($geolocationData)) {
+        // Use dynamic markers with geofence check
+        foreach ($geolocationData as $location) {
+            $marker = Marker::make($location['name'])
+                ->lat($location['lat'])
+                ->lng($location['lon'])
+                ->popup("Hello {$location['name']}!");
 
-                // Check if marker is inside the geo fence
-                if ($this->isMarkerInGeoFence($location['lat'], $location['lon'])) {
-                    Log::info("Marker {$location['name']} is inside the geo fence.");
-                } else {
-                    Log::info("Marker {$location['name']} is outside the geo fence.");
-                }
-
-                $markers[] = $marker;
-            }
-        } else {
-            // Use static markers with geofence
-            $markers = [
-                Marker::make('pos2')
-                    ->lat(-15.7942)
-                    ->lng(-47.8822)
-                    ->popup('Hello Brasilia!')
-                    ->options(['icon' => 'default']),
-                Marker::make('pos3')
-                    ->lat(-26.052136294208974)
-                    ->lng(28.02524274690296)
-                    ->popup('Hello Bryanstan')
-                    ->options(['icon' => 'default']),
-            ];
-
-            // Check if static markers are inside the geo fence (Bryanstan)
-            foreach ($markers as $marker) {
-                $lat = $marker->getLat();
-                $lng = $marker->getLng();
-
-                // Check if marker is inside the geo fence
-                if ($this->isMarkerInGeoFence($lat, $lng)) {
-                    Log::info("Static marker {$marker->getName()} is inside the geo fence.");
-                } else {
-                    Log::info("Static marker {$marker->getName()} is outside the geo fence.");
-                }
+            // Check if marker is inside the geo fence
+            if ($this->isMarkerInGeoFence($location['lat'], $location['lon'])) {
+                Log::info("Marker {$location['name']} is inside the geo fence.");
+            } else {
+                Log::info("Marker {$location['name']} is outside the geo fence.");
             }
 
-            // Add geo fence for Bryanstan
-            $markers[] = Polyline::make('geoFence')
-                ->latlngs([
-                    [-26.052136294208974, 28.02524274690296],
-                    [-26.052136294208974 + 0.1, 28.02524274690296 + 0.1], // Example points
-                    [-26.052136294208974 + 0.1, 28.02524274690296 - 0.1],
-                    [-26.052136294208974 - 0.1, 28.02524274690296 - 0.1],
-                    [-26.052136294208974 - 0.1, 28.02524274690296 + 0.1],
-                ])
-                ->options(['color' => 'blue', 'fillColor' => 'blue', 'fillOpacity' => 0.4]) // Adjust color and opacity as needed
-                ->tooltip('Geo Fence around Bryanstan')
-                ->popup('Geo Fence around Bryanstan');
+            $markers[] = $marker;
+        }
+    } else {
+        // Use static markers with geofence
+        $markers = [
+            Marker::make('pos2')
+                ->lat(-15.7942)
+                ->lng(-47.8822)
+                ->popup('Hello Brasilia!'),
+            Marker::make('pos3')
+                ->lat(-26.052136294208974)
+                ->lng(28.02524274690296)
+                ->popup('Hello Bryanstan'),
+        ];
+
+        // Check if static markers are inside the geo fence (Bryanstan)
+        foreach ($markers as $marker) {
+            $lat = $marker->getLat();
+            $lng = $marker->getLng();
+
+            // Check if marker is inside the geo fence
+            if ($this->isMarkerInGeoFence($lat, $lng)) {
+                Log::info("Static marker {$marker->getName()} is inside the geo fence.");
+            } else {
+                Log::info("Static marker {$marker->getName()} is outside the geo fence.");
+            }
         }
 
-        return $markers;
+        // Add geo fence for Bryanstan
+        $markers[] = Polyline::make('geoFence')
+            ->latlngs([
+                [-26.052136294208974, 28.02524274690296],
+                [-26.052136294208974 + 0.1, 28.02524274690296 + 0.1], // Example points
+                [-26.052136294208974 + 0.1, 28.02524274690296 - 0.1],
+                [-26.052136294208974 - 0.1, 28.02524274690296 - 0.1],
+                [-26.052136294208974 - 0.1, 28.02524274690296 + 0.1],
+            ])
+            ->options(['color' => 'blue', 'fillColor' => 'blue', 'fillOpacity' => 0.4]) // Adjust color and opacity as needed
+            ->tooltip('Geo Fence around Bryanstan')
+            ->popup('Geo Fence around Bryanstan');
     }
+
+    return $markers;
+}
 
     public function getPolylines(): array
     {
@@ -188,6 +186,16 @@ class LeafletMapWidget extends MapWidget
                 ->popup('Route from Durban to Cape Town');
         }
 
+        // Add the route from Johannesburg to Kimberley
+        $polylines[] = Polyline::make('routeJohannesburgToKimberley')
+            ->latlngs([
+                [-26.2041, 28.0473], // Johannesburg
+                [-28.7323, 24.7628], // Kimberley
+            ])
+            ->options(['color' => 'orange', 'weight' => 5])
+            ->tooltip('Route from Johannesburg to Kimberley')
+            ->popup('Route from Johannesburg to Kimberley');
+
         return $polylines;
     }
 
@@ -198,4 +206,71 @@ class LeafletMapWidget extends MapWidget
             Actions\CenterMapAction::make()->zoom(2),
         ];
     }
+
+    protected function getViewData(): array
+    {
+        $viewData = parent::getViewData();
+
+        $viewData['customScripts'] = $this->getCustomScripts();
+
+        return $viewData;
+    }
+
+    protected function getCustomScripts(): string
+{
+    return <<<SCRIPT
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const map = L.map('map').setView([-26.2041, 28.0473], 6);
+
+        // Add the polyline for Johannesburg to Kimberley route
+        const routeCoordinates = [
+            [-26.2041, 28.0473], // Johannesburg
+            [-28.7323, 24.7628], // Kimberley
+        ];
+
+        const route = L.polyline(routeCoordinates, { color: 'green', weight: 5 }).addTo(map);
+
+        // Fetch markers and add them to the map
+        const markers = %s; // Replace with dynamic marker data
+
+        markers.forEach(function (marker) {
+            marker.addTo(map);
+        });
+
+        // Real-time marker for Johannesburg to Kimberley route
+        const routePoints = [
+            { lat: -26.2041, lng: 28.0473 }, // Johannesburg
+            { lat: -28.7323, lng: 24.7628 }, // Kimberley
+        ];
+
+        let currentIndex = 0;
+        const movingMarker = L.marker([routePoints[currentIndex].lat, routePoints[currentIndex].lng], {
+            icon: L.icon({
+                iconUrl: 'path_to_your_icon.png',
+                iconSize: [32, 32], // Adjust size as needed
+                iconAnchor: [16, 16], // Adjust anchor if necessary
+            })
+        }).addTo(map)
+            .bindPopup('Driver is at Johannesburg')
+            .openPopup();
+
+        function moveMarker() {
+            currentIndex++;
+            if (currentIndex >= routePoints.length) {
+                currentIndex = 0;
+            }
+
+            movingMarker.setLatLng([routePoints[currentIndex].lat, routePoints[currentIndex].lng])
+                .bindPopup('Driver is at [' + routePoints[currentIndex].lat + ', ' + routePoints[currentIndex].lng + ']')
+                .openPopup();
+
+            setTimeout(moveMarker, 3000); // Adjust the interval as needed (in milliseconds)
+        }
+
+        setTimeout(moveMarker, 3000); // Start the movement
+    });
+    </script>
+    SCRIPT;
+}
 }
