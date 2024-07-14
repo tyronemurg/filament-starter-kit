@@ -1,5 +1,5 @@
 {
-    "name": "riodwanto/superduper-filament-starter-kit",
+    "name": "tyronemurg/filament-starter-kit",
     "description": "A Filament💡 starting point to kickstart your next app. With Custom Theme, Mail Configuration, Filament Shield, Filament Exception, etc..",
     "type": "project",
     "keywords": [
@@ -8,12 +8,11 @@
         "laravel",
         "filament starter kit",
         "starter kit",
-        "superduper"
+        "webwarrior"
     ],
     "authors": [
         {
-            "name": "Rio Dewanto P",
-            "email": "riodp.tech@gmail.com"
+            "name": "Web Warrior"
         }
     ],
     "license": "MIT",
