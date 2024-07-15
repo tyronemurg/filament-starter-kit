@@ -3,11 +3,11 @@
     <head>
         <meta charset="utf-8">
 
-        <meta name="application-name" content="{{ config('app.name') }}">
+        <meta name="application-name" content="Web Warrior Filament Starter Kit">
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>{{ config('app.name') }}</title>
+        <title>Web Warrior Filament Starter Kit</title>
 
         <style>
             [x-cloak] {

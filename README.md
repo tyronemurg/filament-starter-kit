@@ -24,13 +24,13 @@
 Create project with this composer command:
 
 ```bash
-composer create-project tyronemurg/superduper-filament-starter-kit
+composer create-project tyronemurg/filament-starter-kit
 ```
 
 Setup your env:
 
 ```bash
-cd superduper-filament-starter-kit
+cd filament-starter-kit
 cp .env.example .env
 ```
 
