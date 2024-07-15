@@ -222,55 +222,61 @@ class LeafletMapWidget extends MapWidget
         <script>
         document.addEventListener('DOMContentLoaded', function () {
             const map = L.map('map').setView([-26.2041, 28.0473], 6);
-
+    
             // Add the polyline for Johannesburg to Kimberley route
             const routeCoordinates = [
                 [-26.2041, 28.0473], // Johannesburg
                 [-28.7323, 24.7628], // Kimberley
             ];
-
+    
             const route = L.polyline(routeCoordinates, { color: 'green', weight: 5 }).addTo(map);
-
+    
             // Fetch markers and add them to the map
             const markers = %s; // Replace with dynamic marker data
-
+    
             markers.forEach(function (marker) {
                 marker.addTo(map);
             });
-
+    
             // Real-time marker for Johannesburg to Kimberley route
             const routePoints = [
                 { lat: -26.2041, lng: 28.0473 }, // Johannesburg
                 { lat: -28.7323, lng: 24.7628 }, // Kimberley
             ];
-
+    
             let currentIndex = 0;
             const movingMarker = L.marker([routePoints[currentIndex].lat, routePoints[currentIndex].lng], {
                 icon: L.icon({
-                    iconUrl: 'path_to_your_icon.png',
+                    iconUrl: '/images/your_icon.png',
                     iconSize: [32, 32], // Adjust size as needed
                     iconAnchor: [16, 16], // Adjust anchor if necessary
                 })
             }).addTo(map)
-                .bindPopup('Driver is at Johannesburg')
-                .openPopup();
-
+              .bindPopup('Driver is at Johannesburg')
+              .openPopup();
+    
+            console.log("Initial Marker: ", movingMarker.getLatLng());
+    
             function moveMarker() {
                 currentIndex++;
                 if (currentIndex >= routePoints.length) {
                     currentIndex = 0;
                 }
-
+    
+                console.log("Moving to: ", routePoints[currentIndex]);
+    
                 movingMarker.setLatLng([routePoints[currentIndex].lat, routePoints[currentIndex].lng])
                     .bindPopup('Driver is at [' + routePoints[currentIndex].lat + ', ' + routePoints[currentIndex].lng + ']')
                     .openPopup();
-
+    
                 setTimeout(moveMarker, 3000); // Adjust the interval as needed (in milliseconds)
             }
-
+    
             setTimeout(moveMarker, 3000); // Start the movement
         });
         </script>
         SCRIPT;
     }
+    
 }
+?>
