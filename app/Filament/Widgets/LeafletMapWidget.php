@@ -100,7 +100,7 @@ class LeafletMapWidget extends MapWidget
 // Check if static markers are inside the geo fence (Bryanstan)
         foreach ($markers as $marker) {
             $lat = $marker->getLat();
-            $lng = $marker.getLng();
+            $lng = $marker->getLng();
 
             // Check if marker is inside the geo fence
             if ($this->isMarkerInGeoFence($lat, $lng)) {
@@ -207,81 +207,65 @@ public function getPolylines(): array
     ]);
     }
 
-    protected function getCustomScripts(): string
+    public function getCustomScripts(): string
     {
         return <<<SCRIPT
-        <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const map = L.map('map').setView([-26.2041, 28.0473], 6);
-
-            // Add the polyline for Johannesburg to Kimberley route
-            const routeCoordinates = [
-                [-26.2041, 28.0473], // Johannesburg
-                [-28.7323, 24.7628], // Kimberley
-            ];
-
-            const route = L.polyline(routeCoordinates, { color: 'orange', weight: 5 }).addTo(map);
-
-            // Fetch markers and add them to the map
-            const markers = %s;  // Replace with dynamic marker data
-
-            markers.forEach(function (marker) {
-                marker.addTo(map);
-            });
-
-            // Real-time marker for Johannesburg to Kimberley route
-            const routePoints = [
-                { lat: -26.2041, lng: 28.0473 }, // Johannesburg
-                { lat: -28.7323, lng: 24.7628 }, // Kimberley
-            ];
-
-            let currentIndex = 0;
-            const movingMarker = L.marker([routePoints[currentIndex].lat, routePoints[currentIndex].lng], {
-                icon: L.icon({
-                    iconUrl: '/images/icon.png',
-                    iconSize: [25, 41],
-                    iconAnchor: [12, 41],
-                    popupAnchor: [1, -34],
-                })
-            }).addTo(map);
-
-            setInterval(function () {
-                currentIndex = (currentIndex + 1) % routePoints.length;
-                movingMarker.setLatLng([routePoints[currentIndex].lat, routePoints[currentIndex].lng]);
-
-                console.log("Initial Marker: ", movingMarker.getLatLng());
-                console.log("Moving to: ", routePoints[currentIndex]);
-            }, 2000);
-
-            const geofenceCoordinates = [
-                { lat: -26.2041, lng: 28.0473 }, // Example coordinates for Johannesburg
-                { lat: -28.7323, lng: 24.7628 }, // Example coordinates for Kimberley
-            ];
-
-            L.polygon(geofenceCoordinates, { color: 'blue', fillColor: 'blue', fillOpacity: 0.4 }).addTo(map);
-
-            geofenceCoordinates.forEach(function (point) {
-                L.marker([point.lat, point.lng]).addTo(map);
-            });
-
-            const yellowPolylineCoordinates = [
-                [-26.2041, 28.0473],
-                [-26.2041 + 0.1, 28.0473 + 0.1],
-                [-26.2041 + 0.1, 28.0473 - 0.1],
-                [-26.2041 - 0.1, 28.0473 - 0.1],
-                [-26.2041 - 0.1, 28.0473 + 0.1],
-            ];
-
-            L.polyline(yellowPolylineCoordinates, { color: 'yellow', weight: 3 }).addTo(map);
-
-            yellowPolylineCoordinates.forEach(function (point) {
-                L.marker(point).addTo(map);
-            });
-
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const map = L.map('map').setView([-26.2041, 28.0473], 6);
+    
+        // Add the polyline for Johannesburg to Kimberley route
+        const routeCoordinates = [
+            [-26.2041, 28.0473], // Johannesburg
+            [-28.7323, 24.7628], // Kimberley
+        ];
+    
+        const route = L.polyline(routeCoordinates, { color: 'green', weight: 5 }).addTo(map);
+    
+        // Fetch markers and add them to the map
+        const markers = %s; // Replace with dynamic marker data
+    
+        markers.forEach(function (marker) {
+            marker.addTo(map);
         });
-        </script>
-        SCRIPT;
+    
+        // Real-time marker for Johannesburg to Kimberley route
+        const routePoints = [
+            { lat: -26.2041, lng: 28.0473 }, // Johannesburg
+            { lat: -28.7323, lng: 24.7628 }, // Kimberley
+        ];
+    
+        let currentIndex = 0;
+        const movingMarker = L.marker([routePoints[currentIndex].lat, routePoints[currentIndex].lng], {
+            icon: L.icon({
+                iconUrl: 'http://127.0.0.1:8000/images/favicon.png',
+                iconSize: [25, 41],
+                iconAnchor: [12, 41],
+                popupAnchor: [1, -34],
+            })
+        }).addTo(map)
+            .bindPopup('Driver is at Johannesburg')
+            .openPopup();
+    
+        function moveMarker() {
+            currentIndex++;
+            if (currentIndex >= routePoints.length) {
+                currentIndex = 0;
+            }
+    
+            movingMarker.setLatLng([routePoints[currentIndex].lat, routePoints[currentIndex].lng])
+                .bindPopup('Driver is at [' + routePoints[currentIndex].lat + ', ' + routePoints[currentIndex].lng + ']')
+                .openPopup();
+    
+            setTimeout(moveMarker, 3000); // Adjust the interval as needed (in milliseconds)
+        }
+    
+        setTimeout(moveMarker, 3000); // Start the movement
+    });
+    </script>
+    SCRIPT;
     }
+    
 }
 
 
