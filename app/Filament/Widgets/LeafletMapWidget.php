@@ -247,6 +247,9 @@ public function getPolylines(): array
             .bindPopup('Driver is at Johannesburg')
             .openPopup();
     
+            // Log initial marker position
+    console.log("Initial Marker Position:", movingMarker.getLatLng());
+
         function moveMarker() {
             currentIndex++;
             if (currentIndex >= routePoints.length) {
@@ -256,6 +259,8 @@ public function getPolylines(): array
             movingMarker.setLatLng([routePoints[currentIndex].lat, routePoints[currentIndex].lng])
                 .bindPopup('Driver is at [' + routePoints[currentIndex].lat + ', ' + routePoints[currentIndex].lng + ']')
                 .openPopup();
+
+                console.log("Moving Marker Position:", movingMarker.getLatLng());
     
             setTimeout(moveMarker, 3000); // Adjust the interval as needed (in milliseconds)
         }
