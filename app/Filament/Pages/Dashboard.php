@@ -51,6 +51,11 @@ class Dashboard extends Page
     {
         $widgets = Filament::getWidgets();
 
+        // Remove the LeafletMapWidget explicitly
+    $widgets = array_filter($widgets, function ($widget) {
+        return $widget !== LeafletMapWidget::class;
+    });
+
         // Specify the desired order of widgets
         $orderedWidgets = [
             OverallStatsWidget::class,
@@ -58,7 +63,7 @@ class Dashboard extends Page
             CategoryBarChart::class,
             ProductStockChart::class,
             BannerRadarChart::class,
-            LeafletMapWidget::class,
+           // LeafletMapWidget::class,
             
             // Include other widgets as needed...
         ];
