@@ -13,6 +13,7 @@ use App\Filament\Widgets\CategoryBarChart;
 use App\Filament\Widgets\PostAdditionsChart;
 use App\Filament\Widgets\OverallStatsWidget;
 use App\Filament\Widgets\LeafletMapWidget;
+use App\Filament\Widgets\LeafletMapMarkerWidget;
 
 class Dashboard extends Page
 {
@@ -52,9 +53,13 @@ class Dashboard extends Page
         $widgets = Filament::getWidgets();
 
         // Remove the LeafletMapWidget explicitly
-    $widgets = array_filter($widgets, function ($widget) {
-        return $widget !== LeafletMapWidget::class;
-    });
+        $widgets = array_filter($widgets, function ($widget) {
+            return !in_array($widget, [
+                LeafletMapWidget::class,
+                LeafletMapMarkerWidget::class,
+                // Add more widget classes here if needed
+            ]);
+        });
 
         // Specify the desired order of widgets
         $orderedWidgets = [

@@ -3,9 +3,9 @@
 namespace App\Filament\Pages;
 
 use Filament\Pages\Page;
-use App\Filament\Widgets\LeafletMapWidget;
+use App\Filament\Widgets\LeafletMapMarkerWidget;
 
-class MapMarkersPage extends Page
+class LeafletMapMarkersPage extends Page
 {
     public static ?string $navigationIcon = 'heroicon-o-map';
     public static ?string $navigationGroup = 'Maps';
@@ -13,19 +13,19 @@ class MapMarkersPage extends Page
 
     public static function shouldRegisterNavigation(): bool
     {
-        return false;
+        return true;
     }
 
     public function getHeaderWidgets(): array
     {
         return [
-            LeafletMapWidget::class,
+            LeafletMapMarkerWidget::class,
         ];
     }
 
     public static function getNavigationLabel(): string
 {
-    return 'Map Markers';
+    return 'Leaftlet Map Markers';
 }
 
 public static function getNavigationGroup(): ?string
