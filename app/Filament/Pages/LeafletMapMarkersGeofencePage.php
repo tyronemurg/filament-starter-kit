@@ -3,34 +3,35 @@
 namespace App\Filament\Pages;
 
 use Filament\Pages\Page;
-use App\Filament\Widgets\LeafletMapWidget;
+use App\Filament\Widgets\LeafletMapMarkerGeofenceWidget;
 
-class MapMarkersPage extends Page
+class LeafletMapMarkersGeofencePage extends Page
 {
     public static ?string $navigationIcon = 'heroicon-o-map';
     public static ?string $navigationGroup = 'Maps';
-    public static string $view = 'filament.pages.map-markers-page';
+    public static string $view = 'filament.pages.leaflet-map-markers-geofence-page';
 
     public static function shouldRegisterNavigation(): bool
     {
-        return false;
+        return true;
     }
 
     public function getHeaderWidgets(): array
     {
         return [
-            LeafletMapWidget::class,
+            LeafletMapMarkerGeofenceWidget::class,
         ];
     }
 
     public static function getNavigationLabel(): string
 {
-    return 'Map Markers';
+    return 'Geofencing';
 }
 
 public static function getNavigationGroup(): ?string
 {
     return 'Leaflet Maps';
 }
+
 
 }

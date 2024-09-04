@@ -14,6 +14,7 @@ use App\Filament\Widgets\PostAdditionsChart;
 use App\Filament\Widgets\OverallStatsWidget;
 use App\Filament\Widgets\LeafletMapWidget;
 use App\Filament\Widgets\LeafletMapMarkerWidget;
+use App\Filament\Widgets\LeafletMapMarkerGeofenceWidget;
 
 class Dashboard extends Page
 {
@@ -57,6 +58,7 @@ class Dashboard extends Page
             return !in_array($widget, [
                 LeafletMapWidget::class,
                 LeafletMapMarkerWidget::class,
+                LeafletMapMarkerGeofenceWidget::class,
                 // Add more widget classes here if needed
             ]);
         });
