@@ -25,12 +25,12 @@ class LeafletMapMarkersPage extends Page
 
     public static function getNavigationLabel(): string
 {
-    return 'Leaftlet Map Markers';
+    return 'Markers';
 }
 
 public static function getNavigationGroup(): ?string
 {
-    return 'Maps';
+    return 'Leaflet Maps';
 }
 
 }
