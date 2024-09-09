@@ -15,6 +15,7 @@ use App\Filament\Widgets\OverallStatsWidget;
 use App\Filament\Widgets\LeafletMapWidget;
 use App\Filament\Widgets\LeafletMapMarkerWidget;
 use App\Filament\Widgets\LeafletMapMarkerGeofenceWidget;
+use App\Filament\Widgets\LeafletHeatMapWidget;
 
 class Dashboard extends Page
 {
@@ -59,6 +60,7 @@ class Dashboard extends Page
                 LeafletMapWidget::class,
                 LeafletMapMarkerWidget::class,
                 LeafletMapMarkerGeofenceWidget::class,
+                LeafletHeatMapWidget::class,
                 // Add more widget classes here if needed
             ]);
         });

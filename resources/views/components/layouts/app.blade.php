@@ -26,5 +26,6 @@
 
         @filamentScripts
         @vite('resources/js/app.js')
+        <script src="https://unpkg.com/leaflet.heat/dist/leaflet-heat.js"></script>
     </body>
 </html>
