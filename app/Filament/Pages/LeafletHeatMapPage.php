@@ -53,11 +53,11 @@ class LeafletHeatMapPage extends Page
     }
 
     // This is the method you override to customize the URL
-    // public static function getUrl(array $parameters = [], bool $isAbsolute = true, ?string $panel = null, ?\Illuminate\Database\Eloquent\Model $tenant = null): string
-    // {
-    //     // Set a custom URL, for example, /custom-heatmap-url
-    //     return url('/heatmap');
-    // }
+    public static function getUrl(array $parameters = [], bool $isAbsolute = true, ?string $panel = null, ?\Illuminate\Database\Eloquent\Model $tenant = null): string
+    {
+        // Set a custom URL, for example, /custom-heatmap-url
+        return url('/admin/heatmap');
+    }
 
     public static function shouldRegisterNavigation(): bool
     {
