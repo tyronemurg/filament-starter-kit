@@ -18,4 +18,4 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/heatmap', [NewHeatMapPage::class, 'show']);
+Route::get('/admin/heatmap', [NewHeatMapPage::class, 'show']);
