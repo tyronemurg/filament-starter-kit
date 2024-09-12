@@ -1,5 +1,5 @@
 <x-filament-panels::page>
-    <div id="map" style="height: 600px;"></div>
+    <div id="map" style="height: 400px;border-radius:15px;"></div>
 
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <script src="https://unpkg.com/leaflet.heat/dist/leaflet-heat.js"></script>
